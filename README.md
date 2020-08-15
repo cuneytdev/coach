@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Nest.js Auth Sample
 
 A starter library for authentication using email/password to sign in and JWT for API access. Based on the example from the [NestJS Authentication docs](https://docs.nestjs.com/techniques/authentication). [Repo](https://github.com/nestjs/nest/tree/master/sample/19-auth-jwt).
@@ -115,11 +114,3 @@ A bad or missing token will result in:
 ```json
 {"statusCode":401,"error":"Unauthorized"}
 ```
-
-
-
-
-
-=======
-# coach
->>>>>>> f67703368713fb579b6f709f62295c3aeecbc6a3
