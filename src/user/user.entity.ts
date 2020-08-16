@@ -15,6 +15,6 @@ export class User  {
   email: string;
 
   @IsNotEmpty()
-  @Column({ length: 500 })
+  @Column({ length: 500, select: false })
   password: string;
 }

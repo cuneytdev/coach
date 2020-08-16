@@ -6,6 +6,7 @@ export class ErrorBase {
     success: boolean;
 
     @IsString()
-    @IsNotEmpty()
     resultInfo: string;
+
+    error: any;
 }

@@ -12,20 +12,60 @@ export class ParticipantService {
         private readonly gymParticipantRepository: Repository<Participant>,
     ) { }
 
-    async findAll(): Promise<Participant[]> {
-        return await this.gymParticipantRepository.find();
+    async findAll(): Promise<Base<Participant[]> | ErrorBase> {
+        try {
+            const result = new Base<Gym>();
+            result.result = await this.gymParticipantRepository.find();
+            result.success = true;
+            return result;
+        } catch (e) {
+            const err = new ErrorBase();
+            err.success = false;
+            err.error = e;
+            return err;
+        }
     }
 
-    async find(id: number): Promise<Participant> {
-        return await this.gymParticipantRepository.findOne(id);
+    async find(id: number): Promise<Base<Participant> | ErrorBase> {
+        try {
+            const result = new Base<Gym>();
+            result.result = await this.gymParticipantRepository.findOne(id);
+            result.success = true;
+            return result;
+        } catch (e) {
+            const err = new ErrorBase();
+            err.success = false;
+            err.error = e;
+            return err;
+        }
     }
 
-    async findByOwner(ownerId: string): Promise<Participant> {
-        return await this.gymParticipantRepository.findOne({ where: { owner: ownerId } });
+    async findByOwner(ownerId: string): Promise<Base<Participant> | ErrorBase> {
+        try {
+            const result = new Base<Gym>();
+            result.result = await this.gymParticipantRepository.findOne({ where: { owner: ownerId } });
+            result.success = true;
+            return result;
+        } catch (e) {
+            const err = new ErrorBase();
+            err.success = false;
+            err.error = e;
+            return err;
+        }
     }
 
-    async delete(participant: Participant): Promise<Participant> {
-        return await this.gymParticipantRepository.remove(participant);
+    async delete(participant: Participant): Promise<Base<Participant> | ErrorBase> {
+        try {
+            const result = new Base<Gym>();
+            result.result = await this.gymParticipantRepository.remove(participant);
+            result.success = true;
+            return result;
+        } catch (e) {
+            const err = new ErrorBase();
+            err.success = false;
+            err.error = e;
+            return err;
+        }
     }
 
     async create(gym: Participant): Promise<Base<Participant> | ErrorBase> {
@@ -44,8 +84,18 @@ export class ParticipantService {
         }
     }
 
-    async update(gymParticipantData: Participant) {
-        await this.gymParticipantRepository.save(gymParticipantData);
-        return await this.gymParticipantRepository.findOne(gymParticipantData.id);
+    async update(gymParticipantData: Participant): Promise<Base<Participant> | ErrorBase> {
+        try {
+            const result = new Base<Gym>();
+            await this.gymParticipantRepository.save(gymParticipantData);
+            result.result = await this.gymParticipantRepository.findOne(gymParticipantData.id);
+            result.success = true;
+            return result;
+        } catch (e) {
+            const err = new ErrorBase();
+            err.success = false;
+            err.error = e;
+            return err;
+        }
     }
 }

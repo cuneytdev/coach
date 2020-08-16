@@ -1,7 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Permission } from './permission.entity';
-import {Role} from './permission.enum';
+import {Base} from '../model/base.dto';
+import {UserPermission} from './user-permissions.entity';
+import {ErrorBase} from '../model/error-base.dto';
 
 @Injectable()
 export class PermissionService {
@@ -10,8 +12,18 @@ export class PermissionService {
     private readonly permRepository: Repository<Permission>,
   ) {}
 
-  async findAll(): Promise<Permission[]> {
-    return await this.permRepository.find();
+  async findAll(): Promise<Base<Permission[]> | ErrorBase> {
+    try {
+      const result = new Base<UserPermission>();
+      result.result = await this.permRepository.find();
+      result.success = true;
+      return result;
+    } catch (e) {
+      const err = new ErrorBase();
+      err.success = false;
+      err.error = e;
+      return err;
+    }
   }
 
   async find(id: number): Promise<Permission> {
